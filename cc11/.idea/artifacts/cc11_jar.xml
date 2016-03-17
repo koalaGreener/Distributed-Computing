@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="cc11:jar">
+    <output-path>$USER_HOME$/hadoop-2.7.1/input</output-path>
+    <root id="archive" name="cc11.jar">
+      <element id="module-output" name="cc11" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar/hadoop-mapreduce-client-common-2.7.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar/hadoop-mapreduce-client-core-2.7.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar/slf4j-api-1.7.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar/slf4j-log4j12-1.7.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar/hadoop-common-2.7.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
