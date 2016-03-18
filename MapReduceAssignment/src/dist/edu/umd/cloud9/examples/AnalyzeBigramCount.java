@@ -16,23 +16,13 @@
 
 package edu.umd.cloud9.examples;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.StringTokenizer;
-
+import edu.umd.cloud9.io.PairOfWritables;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 
-import edu.umd.cloud9.io.PairOfWritables;
+import java.io.*;
+import java.util.*;
 
 public class AnalyzeBigramCount {
 	public static void main(String[] args) {
@@ -45,7 +35,7 @@ public class AnalyzeBigramCount {
 		// SequenceFileUtils.readDirectory(new Path(args[0]));
 
 
-		Path input_Path = new Path("/Users/HUANGWEIJIE/Dropbox/Information Retrieval and Data Mining/individual assignment/MapReduceAssignment/src/train/");
+		Path input_Path = new Path("/Users/HUANGWEIJIE/Dropbox/Information Retrieval and Data Mining/individual assignment/Distributed-Computing/MapReduceAssignment/src/train/");
         System.out.println("input path: " + input_Path.toString());
 
         List<PairOfWritables<Text, IntWritable>> bigrams;
@@ -138,15 +128,6 @@ public class AnalyzeBigramCount {
                     count = result[2];
                     bigrams.add(new PairOfWritables<Text, IntWritable>(new Text(firstWord + " " + secondWord), new IntWritable(Integer.parseInt(count))));
                 }
-
-
-/*                rToken = new StringTokenizer(rLine);
-                // extract the meaningful information
-				firstWord = rToken.nextToken();
-                System.out.println(firstWord);
-                secondWord = rToken.nextToken();
-				count = rToken.nextToken();
-                System.out.println(firstWord + " "+secondWord + " "+count);*/
 
 			}
 			if (bigramFile != null)

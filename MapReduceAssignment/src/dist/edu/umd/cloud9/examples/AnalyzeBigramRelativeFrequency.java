@@ -16,41 +16,29 @@
 
 package edu.umd.cloud9.examples;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.StringTokenizer;
-
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.FloatWritable;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
-
-import edu.umd.cloud9.io.SequenceFileUtils;
 import edu.umd.cloud9.io.PairOfStrings;
 import edu.umd.cloud9.io.PairOfWritables;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.FloatWritable;
+
+import java.io.*;
+import java.util.*;
 
 public class AnalyzeBigramRelativeFrequency {
 	public static void main(String[] args) {
-		if (args.length != 1) {
+/*		if (args.length != 1) {
 			System.out.println("usage: [input-path]");
 			System.exit(-1);
 		}
 
-		System.out.println("input path: " + args[0]);
+		System.out.println("input path: " + args[0]);*/
+		Path input_Path = new Path("/Users/HUANGWEIJIE/Dropbox/Information Retrieval and Data Mining/individual assignment/Distributed-Computing/MapReduceAssignment/src/test");
 
 //		 List<PairOfWritables<PairOfStrings, FloatWritable>> pairs =
 //		 SequenceFileUtils.readDirectory(new Path(args[0]));
 		List<PairOfWritables<PairOfStrings, FloatWritable>> pairs;
 		try {
-			pairs = readDirectory(new Path(args[0]));
+			pairs = readDirectory(input_Path);
 
 			List<PairOfWritables<PairOfStrings, FloatWritable>> list1 = new ArrayList<PairOfWritables<PairOfStrings, FloatWritable>>();
 			List<PairOfWritables<PairOfStrings, FloatWritable>> list2 = new ArrayList<PairOfWritables<PairOfStrings, FloatWritable>>();
@@ -58,10 +46,10 @@ public class AnalyzeBigramRelativeFrequency {
 			for (PairOfWritables<PairOfStrings, FloatWritable> p : pairs) {
 				PairOfStrings bigram = p.getLeftElement();
 
-				if (bigram.getLeftElement().equals("light")) {
+				if (bigram.getLeftElement().equals("romeo")) {
 					list1.add(p);
 				}
-				if (bigram.getLeftElement().equals("contain")) {
+				if (bigram.getLeftElement().equals("the")) {
 					list2.add(p);
 				}
 			}
@@ -84,7 +72,7 @@ public class AnalyzeBigramRelativeFrequency {
 				System.out.println(bigram + "\t" + p.getRightElement());
 				i++;
 
-				if (i > 10) {
+				if (i > 5) {
 					break;
 				}
 			}
@@ -107,7 +95,7 @@ public class AnalyzeBigramRelativeFrequency {
 				System.out.println(bigram + "\t" + p.getRightElement());
 				i++;
 
-				if (i > 10) {
+				if (i > 100) {
 					break;
 				}
 			}
@@ -141,27 +129,21 @@ public class AnalyzeBigramRelativeFrequency {
 			DataInputStream resultsStream = new DataInputStream(bigramFile);
 			BufferedReader results = new BufferedReader(new InputStreamReader(resultsStream));
 
-			StringTokenizer rToken;
-			String rLine;
+            String rLine;
 			String firstWord;
 			String secondWord;
 			String frequency;
 
 			// iterate through every line in the file
 			while ((rLine = results.readLine()) != null) {
-				rToken = new StringTokenizer(rLine);
-				// extract the meaningful information
-				firstWord = rToken.nextToken();
-				//remove leading ( and trailing ,
-				firstWord = firstWord.substring(1, firstWord.length() - 1);
-				secondWord = rToken.nextToken();
-				//remove trailing )
-				secondWord = secondWord.substring(0, secondWord.length() - 1);
-				frequency = rToken.nextToken();
 
-				relativeFrequencies.add(new PairOfWritables<PairOfStrings, FloatWritable>(
-						new PairOfStrings(firstWord, secondWord), new FloatWritable(Float
-								.parseFloat(frequency))));
+                String[] result = rLine.toString().split(" ");
+                if (result.length == 3){
+                    firstWord = result[0];
+                    secondWord = result[1];
+                    frequency = result[2];
+                    relativeFrequencies.add(new PairOfWritables<PairOfStrings, FloatWritable>(new PairOfStrings(firstWord, secondWord), new FloatWritable(Float.parseFloat(frequency))));
+                }
 
 			}
 			if (bigramFile != null)

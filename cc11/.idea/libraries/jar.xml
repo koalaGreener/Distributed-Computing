@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="jar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/jar/hadoop-mapreduce-client-common-2.7.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/jar/hadoop-mapreduce-client-core-2.7.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/jar/slf4j-api-1.7.10.jar!/" />
       <root url="jar://$PROJECT_DIR$/jar/slf4j-log4j12-1.7.10.jar!/" />
       <root url="jar://$PROJECT_DIR$/jar/hadoop-common-2.7.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jar/hadoop-mapreduce-client-common-2.7.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jar/slf4j-api-1.7.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jar/hadoop-mapreduce-client-core-2.7.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
