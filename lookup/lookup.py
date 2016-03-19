@@ -12,7 +12,7 @@ def readTheFile(filename):
 
 '''import the data that contains the spam'''
 if __name__ == '__main__':
-     readTheFile("/Users/HUANGWEIJIE/Desktop/king.txt")
-     readTheFile("/Users/HUANGWEIJIE/Desktop/macbeth.txt")
-     readTheFile("/Users/HUANGWEIJIE/Desktop/juliet.txt")
+     readTheFile("data/king.txt")
+     readTheFile("data/macbeth.txt")
+     readTheFile("data/juliet.txt")
 
