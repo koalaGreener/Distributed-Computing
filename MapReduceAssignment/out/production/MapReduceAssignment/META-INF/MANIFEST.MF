@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: edu.umd.cloud9.examples.AnalyzeBigramCount
+Main-Class: edu.umd.cloud9.examples.InvertedIndex
 
