@@ -1,0 +1,11 @@
+./hadoop jar ../input/cc11.jar /data/dataset.txt /output2148
+./hdfs dfs -cat /output2150/part-r-00000
+
+
+./hadoop jar ../input/MapReduceAssignment.jar /data/dataset.txt /output2352
+./hdfs dfs -cat /output0104/part-r-00000
+
+
+./hadoop jar ../input/MapReduceAssignment.jar -input /data/dataset.txt -numReducers 1 -output /output2352
+
+./hdfs dfs -cat /output2352/part-r-00000
