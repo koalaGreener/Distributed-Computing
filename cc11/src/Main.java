@@ -19,12 +19,6 @@ public class Main {
             String wordA;
             String wordB;
 
-/*            String[] result = value.toString().split(" ");
-            for (int x = 0; x < result.length - 1; x++){
-                    Text word = new Text(result[x] + " " + result[x + 1]);
-                    context.write(word, one);
-            }*/
-
             String line = value.toString();
             StringTokenizer itr = new StringTokenizer(line);
             //For each word, map it to a count of one. Duplicate words will be counted
@@ -38,9 +32,6 @@ public class Main {
             }
 
             }
-
-
-
         }
     }
 
@@ -59,8 +50,6 @@ public class Main {
         }
     }
 
-
-
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
         Configuration conf1 = new Configuration();
@@ -75,10 +64,7 @@ public class Main {
         job.setNumReduceTasks(10);
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
-        //outputPath.getFileSystem(conf1).delete(outputPath);
         System.exit(job.waitForCompletion(true) ? 0 : 1);
-
-
 
     }
 

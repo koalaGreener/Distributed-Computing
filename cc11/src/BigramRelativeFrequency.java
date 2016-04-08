@@ -36,12 +36,8 @@ public class BigramRelativeFrequency {
                 }
 
             }
-
-
-
         }
     }
-
 
     protected static class MyCombiner extends Reducer<Text, IntWritable, Text, IntWritable> {
 
@@ -57,7 +53,6 @@ public class BigramRelativeFrequency {
 
         }
     }
-
 
     public static class IntSumReducer extends Reducer<Text,IntWritable,Text,FloatWritable> {
         static final FloatWritable theresult = new FloatWritable();
@@ -82,8 +77,6 @@ public class BigramRelativeFrequency {
         }
 
     }
-
-
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 

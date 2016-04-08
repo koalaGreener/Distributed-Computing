@@ -10,7 +10,6 @@ def readTheFile(filename):
         print(filename)
         print(result)
 
-'''import the data that contains the spam'''
 if __name__ == '__main__':
      readTheFile("data/king.txt")
      readTheFile("data/macbeth.txt")

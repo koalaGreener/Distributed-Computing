@@ -35,7 +35,7 @@ public class AnalyzeBigramCount {
 		// SequenceFileUtils.readDirectory(new Path(args[0]));
 
 
-		Path input_Path = new Path("/Users/HUANGWEIJIE/Dropbox/Information Retrieval and Data Mining/individual assignment/Distributed-Computing/MapReduceAssignment/src/train/");
+		Path input_Path = new Path("/Users/HUANGWEIJIE/Dropbox/Information Retrieval and Data Mining/individual assignment/Distributed-Computing/MapReduceAssignment/src/BigramCountR5/");
         System.out.println("input path: " + input_Path.toString());
 
         List<PairOfWritables<Text, IntWritable>> bigrams;

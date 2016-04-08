@@ -8,7 +8,6 @@ import edu.umd.cloud9.util.Object2IntFrequencyDistribution;
 import edu.umd.cloud9.util.PairOfObjectInt;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -26,7 +25,8 @@ import java.util.Iterator;
 
 
 public class InvertedIndex extends Configured implements Tool {
-    private static class MyMapper extends Mapper<LongWritable, Text, Text, PairOfInts> {
+
+    private static class InvertedIndex_Mapper extends Mapper<LongWritable, Text, Text, PairOfInts> {
         private static final Text word = new Text();
         private static final Object2IntFrequencyDistribution<String> counts = new EntryObject2IntFrequencyDistribution<String>();
         public void map(LongWritable docno, Text doc, Context context) throws IOException, InterruptedException {
@@ -36,19 +36,18 @@ public class InvertedIndex extends Configured implements Tool {
             // First build a histogram of the terms.
             for (String term : terms) {
                 if (term == null || term.length() == 0)
-                {
                     continue;
-                }
                 counts.increment(term);
             }
             // Emit postings.
-            for (PairOfObjectInt<String> e : counts) {
+            for (PairOfObjectInt<String> e : counts)
+            {
                 word.set(e.getLeftElement());
                 context.write(word, new PairOfInts((int) docno.get(), e.getRightElement()));
             }
         }
     }
-    private static class MyReducer extends Reducer<Text, PairOfInts, Text, PairOfWritables<IntWritable, ArrayListWritable<PairOfInts>>> {
+    private static class InvertedIndex_Reducer extends Reducer<Text, PairOfInts, Text, PairOfWritables<IntWritable, ArrayListWritable<PairOfInts>>> {
         private final static IntWritable DF = new IntWritable();
         public void reduce(Text key, Iterable<PairOfInts> values, Context context) throws IOException, InterruptedException {
             Iterator<PairOfInts> iter = values.iterator();
@@ -73,17 +72,14 @@ public class InvertedIndex extends Configured implements Tool {
         job.setJobName("InvertedIndex");
         job.setJarByClass(InvertedIndex.class);
         job.setNumReduceTasks(1);
-        FileInputFormat.setInputPaths(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(PairOfInts.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(PairOfWritables.class);
-        job.setMapperClass(MyMapper.class);
-        job.setReducerClass(MyReducer.class);
-        // Delete the output directory if it exists already.
-        Path outputDir = new Path(args[1]);
-        FileSystem.get(getConf()).delete(outputDir, true);
+        job.setMapperClass(InvertedIndex_Mapper.class);
+        job.setReducerClass(InvertedIndex_Reducer.class);
+        FileInputFormat.setInputPaths(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
         job.waitForCompletion(true);
         return 0;
     }
